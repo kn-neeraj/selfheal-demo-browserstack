@@ -1,29 +1,23 @@
 # Self Heal Demo (TestNG)
 
 ## Overview
-This repository contains demo scripts and configuration for testing the self-healing feature on BrowserStack using Appium and TestNG. It includes two main components:
+This repository contains demo scripts and configuration for testing the self-healing feature on BrowserStack using Appium and TestNG. It includes two main flows:
 
-### 1. Base App (BaseApp.apk)
-- The base Android app used for automation and self-healing tests.
+### 1. Base App Flow
+- Uses the **BaseApp.apk** for standard automation tests without self-healing.
 - Located at: `android/testng-examples/BaseApp.apk`
-- This app serves as the reference for normal (non-self-healing) test runs.
+- Demonstrates normal automation behavior and serves as a reference for comparison.
 
-### 2. Self-Heal App (SelfHealApp.apk)
-- The self-healing version of the app, built to demonstrate BrowserStack's self-heal capabilities.
+### 2. Self-Heal App Flow
+- Uses the **SelfHealApp.apk** to showcase BrowserStack's self-heal capability.
 - Located at: `android/testng-examples/SelfHealApp.apk`
-- Used to validate how the self-heal feature recovers from locator changes or UI modifications.
+- **Run sessions with and without self-heal enabled** to observe how the feature recovers from locator changes or UI modifications:
+  - **Without self-heal:** Tests may fail if locators change.
+  - **With self-heal:** Tests should pass even if some locators have changed, as self-heal attempts to find the correct elements automatically.
 
-## Test Scenarios Demonstrated
-- This repository includes two different test suites:
-  - **Base App Test Suite:** Runs against the base app to show standard automation behavior without self-healing.
-  - **Self-Heal App Test Suite:** Runs against the self-heal app with self-healing enabled to demonstrate how tests recover from locator changes or UI modifications.
-- The test names will differ between the two suites to clearly indicate which scenario is being executed (e.g., `BaseAppTest` vs `SelfHealAppTest`).
-- By comparing the results of these two test suites, you can clearly observe the benefits of the self-heal feature.
-
-## How to Check Differences
-- Run your test suite with both the base app and the self-heal app.
-- Compare the results and logs: with self-heal enabled, tests should pass even if some locators have changed, while they may fail without self-heal.
-- You can also use diff tools to compare the APKs or source code if needed.
+## How to Compare
+- Run your test suite on the Self-Heal App twice: once with `selfHeal: false` and once with `selfHeal: true` in your `browserstack.yml`.
+- Compare the results and logs to see the impact of self-healing.
 
 ## About the Self-Heal Feature
 - The self-heal feature in BrowserStack automatically detects and recovers from locator changes in your app's UI during automated tests.
