@@ -76,7 +76,7 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
     <scope>compile</scope>
 </dependency>
 ```
-* Modify your build plugin to run tests by adding argLine `-javaagent:${com.browserstack:browserstack-java-sdk:jar}` and `maven-dependency-plugin` for resolving dependencies in the profiles `sample-test` and `sample-local-test`.
+* Modify your build plugin to run tests by adding argLine `-javaagent:${com.browserstack:browserstack-java-sdk:jar}` and `maven-dependency-plugin` for resolving dependencies in the profiles `sample-test` and `sample-selfheal-test`.
 ```
             <plugin>
                <artifactId>maven-dependency-plugin</artifactId>
@@ -95,7 +95,7 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
                 <version>3.0.0-M5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>config/sample-local-test.testng.xml</suiteXmlFile>
+                        <suiteXmlFile>config/sample-selfheal-test.testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:${com.browserstack:browserstack-java-sdk:jar}
@@ -115,7 +115,7 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
 - Clone the repository
 - Install dependencies `gradle build`
 - To run the test suite having cross-platform with parallelization, run `gradle sampleTest`
-- To run the `selfheal` test suite having cross-platform with parallelization, run `gradle sampleLocalTest`
+- To run the `selfheal` test suite having cross-platform with parallelization, run `gradle sampleSelfHealTest`
 
 Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 
@@ -125,7 +125,7 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
 
 * Following are the changes required in `gradle.build` -
     * Add `compileOnly 'com.browserstack:browserstack-java-sdk:latest.release'` in dependencies
-    * Fetch Artifact Information and add `jvmArgs` property in tasks *SampleTest* and *SampleLocalTest* :
+    * Fetch Artifact Information and add `jvmArgs` property in tasks *SampleTest* and *SampleSelfHealTest* :
   ```
   def browserstackSDKArtifact = configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find { it.name == 'browserstack-java-sdk' }
   
