@@ -20,10 +20,10 @@ The Self-Healing Agent dynamically identifies these selector failures, uses cont
 
 This repository demonstrates BrowserStack's Self-Healing AI Agent for web automation using TestNG and BrowserStack Java SDK. It contains two test scripts:
 
-- **BStackDemoTest.java**: Runs a standard automation flow (control test - should always pass)
-- **BStackSelfHealDemoTest.java**: Runs the same flow with "Self-Heal Mode" enabled on the demo website to simulate selector failures (demonstrates healing in action) due to DOM changes.
+- **BStackDemoTest.java**: Runs a standard automation flow (tests should pass and serve as the baseline).
+- **BStackSelfHealDemoTest.java**: Runs the same flow with "Self-Heal Mode" enabled. Simulates selector failures due to DOM shifts.
 
-Both tests run on the demo website: **[https://browserstack.github.io/selfheal-demo-app/](https://browserstack.github.io/selfheal-demo-app/)**
+Tests run on the demo website: **[https://browserstack.github.io/selfheal-demo-app/](https://browserstack.github.io/selfheal-demo-app/)**
 
 ---
 
@@ -43,7 +43,7 @@ Both tests run on the demo website: **[https://browserstack.github.io/selfheal-d
 
 1. Ensure `selfHeal: false` in `browserstack.yml`
 2. Run the tests:
-   - `mvn test -P sample-test` → **Expected: Tests PASS** (no selector changes)
+   - `mvn test -P sample-test` → **Expected: Tests PASS** (Serves as baseline)
    - `mvn test -P sample-selfheal-test` → **Expected: Tests FAIL** with `NoSuchElementException` (website simulates DOM shift & selector changes)
 
 ### Demo Part 2: With Self-Healing (Tests Pass due to Self-Healing AI Agent)
@@ -52,6 +52,7 @@ Both tests run on the demo website: **[https://browserstack.github.io/selfheal-d
    - Set `selfHeal: true` in `browserstack.yml` file
 2. Run the test once so Agent captures success context:
    - `mvn test -P sample-test` ->  **Expected: Tests PASS** 
+   - Note: The Agent needs to learn from a successful test run before it can heal the test.
 2. Re-run the failing test:
    - `mvn test -P sample-selfheal-test` → **Expected: Tests PASS** (AI agent automatically heals broken selectors)
 
