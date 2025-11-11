@@ -50,8 +50,8 @@ Both tests run on the demo website: **[https://browserstack.github.io/selfheal-d
 
 1. Enable self-healing:
    - Set `selfHeal: true` in `browserstack.yml` file
-2. Run the tests for success context:
-   - `mvn test -P sample-test` ->  **Expected: Tests PASS** (Captures Success context with selfHeal = true)
+2. Run the test once so Agent captures success context:
+   - `mvn test -P sample-test` ->  **Expected: Tests PASS** 
 2. Re-run the failing test:
    - `mvn test -P sample-selfheal-test` → **Expected: Tests PASS** (AI agent automatically heals broken selectors)
 
