@@ -45,3 +45,21 @@ task sampleSelfHealAppTest(type: Test) {
         jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
     }
 }
+
+task loginTest(type: Test) {
+    useTestNG() {
+        dependsOn cleanTest
+        useDefaultListeners = true
+        suites "src/test/resources/com/browserstack/login-test.testng.xml"
+        jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
+    }
+}
+
+task selfHealLoginTest(type: Test) {
+    useTestNG() {
+        dependsOn cleanTest
+        useDefaultListeners = true
+        suites "src/test/resources/com/browserstack/self-heal-login-test.testng.xml"
+        jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
+    }
+}
