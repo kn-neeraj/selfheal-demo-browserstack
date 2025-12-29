@@ -11,7 +11,7 @@ accessKey: BROWSERSTACK_ACCESS_KEY
 # ======================
 # The following capabilities are used to set up reporting on BrowserStack:
 # Set 'projectName' to the name of your project. Example, Marketing Website
-projectName: BrowserStack Self-Heal Sample Project
+projectName: BrowserStack Self-Heal Sample App Project
 # Set `buildName` as the name of the job / testsuite being run
 buildName: browserstack self-heal sample build native app
 # `buildIdentifier` is a unique id to differentiate every execution that gets appended to
@@ -26,8 +26,8 @@ framework: testng
 
 source: testng:appium-sample-sdk:v1.1
 
-# app: ./BaseApp.apk # for testing without self heal
-app: ./SelfHealApp.apk # For testing with the Self Heal App
+# New self-healing login demo app
+app: ./selfHealDemoAndroidApp.apk # Self-healing login demo app
 
 # =======================================
 # Platforms (Browsers / Devices to test)

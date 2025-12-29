@@ -9,17 +9,16 @@ The Self-Healing Agent dynamically identifies these selector failures, uses cont
 
 ## Introduction
 
-This repository demonstrates BrowserStack's Self-Healing feature for Android native apps using Appium and TestNG. It includes two Android applications that showcase the power of self-healing in real-world scenarios:
+This repository demonstrates BrowserStack's Self-Healing feature for Android native apps using Appium and TestNG. It has an android app with a toggle switch that simulates DOM shifts:
 
-- `BaseAppTest.java` : Runs the test suite on BaseApp.apk (the original app with stable UI). These tests pass and serve as the baseline.
-- `SelfHealAppTest.java` :  Runs the same test suite on SelfHealApp.apk (the same app but modified with changed selectors to simulate DOM shift). Without self-healing, these tests fail due to locator changes.
+- `LoginTest.java` : Baseline login test. This test always passes and establishes the baseline for the self-healing agent.
+- `SelfHealLoginTest.java` : Login test that toggles "Self-Heal Mode" in the app, causing element IDs to change (e.g., `sign_in_button` → `sign_in_button_modified`) simulating DOM shift.
 
 ## How to Run
 
 ### Prerequisites
 1. Install Java and Maven, if not already installed. Add Java to PATH environment variable.
 2. Verify installation: `java -version`, `mvn -version`
-3. Move to respective git branch: "testng-automate" for web, "testng-appium-app" for native apps
 
 ### Setup
 1. Clone the repository
@@ -29,18 +28,14 @@ This repository demonstrates BrowserStack's Self-Healing feature for Android nat
 ### Demo Part 1 : Without Self-Healing (Tests Fail due to DOM shift & selector failures)
 
 1. Ensure `selfHeal: false` in `browserstack.yml`
-2. Run the tests: 
-   - In `browserstack.yml`, ensure BaseApp is selected `app: ./BaseApp.apk`. Run the tests: `mvn test -P sampleBaseAppTest`. **Expected: Tests PASS**
-   - In `browserstack.yml`, ensure SelfHealApp is selected `app: ./SelfHealApp.apk`. Run the tests: `mvn test -P sampleSelfHealAppTest`. **Expected: Tests FAIL** (app simulates DOM shift & selector changes)
+2. Run the baseline test: `mvn test -P loginTest`. **Expected: Tests PASS** (normal mode, no DOM shift)
+3. Run the self-heal mode test: `mvn test -P selfHealLoginTest`. **Expected: Tests FAIL** (toggle changes element IDs, selectors don't match)
 
 ### Demo Part 2 : With Self-Healing (Tests Pass due to Self-Healing AI Agent)
 1. Enable Self-healing agent. Ensure `selfHeal: true` in `browserstack.yml`
-2. Run the test once so Agent captures success context: 
-   - In `browserstack.yml`, ensure BaseApp is selected `app: ./BaseApp.apk`. Run the tests: `mvn test -P sampleBaseAppTest`.  **Expected: Tests PASS** (no selector changes)
+2. Run the baseline test so the agent learns: `mvn test -P loginTest`. **Expected: Tests PASS**
    - Note: The Agent needs to learn from a successful test run before it can heal tests.
-
-3. Re-run the failing test:
-   - In `browserstack.yml`, ensure SelfHealApp is selected `app: ./SelfHealApp.apk`. Run the tests: `mvn test -P sampleSelfHealAppTest`. **Expected: Tests PASS** (Self-Healing AI agent automatically heals the broken selectors)
+3. Run the self-heal mode test: `mvn test -P selfHealLoginTest`. **Expected: Tests PASS** (Self-Healing AI agent automatically heals the broken selectors!)
 
 ### View Results
 
